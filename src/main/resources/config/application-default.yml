@@ -10,5 +10,7 @@ spring:
     jpa:
         database-platform: org.hibernate.dialect.H2Dialect
         database: H2
-
+batch:
+    file: cities.csv
+    cron-expression: 0 */1 * * * *
 

@@ -2,6 +2,7 @@ package br.com.cinq.spring.data.repository.test;
 
 // import br.com.cinq.spring.data.sample.entity.Country;
 // import br.com.cinq.spring.data.sample.repository.CountryRepository;
+import br.com.cinq.spring.data.Application;
 import br.com.cinq.spring.data.sample.entity.Country;
 import br.com.cinq.spring.data.sample.repository.CountryRepository;
 
@@ -14,12 +15,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("unit")
 public class CountryRepositoryTest {
 
@@ -51,25 +52,5 @@ public class CountryRepositoryTest {
 		Assert.assertEquals(1, countries.size());
 
 	}
-
-    @Test
-    public void testInsertWithSameName() {
-
-        Country country = new Country();
-        country.setId(10l);
-        country.setName("France");
-
-        dao.save(country);
-
-        long count = dao.count();
-
-        System.out.println(count);
-
-        Iterable<Country> findAll = dao.findAll();
-
-        for (Country c : findAll) {
-            System.out.println(c.getId());
-        }
-    }
 
 }

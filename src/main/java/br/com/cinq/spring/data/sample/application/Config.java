@@ -1,11 +1,11 @@
 package br.com.cinq.spring.data.sample.application;
 
+import br.com.cinq.spring.data.resource.CityResource;
+
 import javax.ws.rs.ApplicationPath;
 
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
-
-import br.com.cinq.spring.data.resource.CityResource;
 
 /**
  * Register Jersey modules
@@ -22,5 +22,6 @@ public class Config extends ResourceConfig {
 		// packages("br.com.cinq.greet.resource");
 		// property(ServletProperties.FILTER_FORWARD_ON_404, true);
 	}
+
 
 }

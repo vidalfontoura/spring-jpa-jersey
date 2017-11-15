@@ -1,8 +1,7 @@
 package br.com.cinq.spring.data.repository.test;
 
-import br.com.cinq.spring.data.sample.application.Application;
-//import br.com.cinq.spring.data.sample.entity.Country;
-//import br.com.cinq.spring.data.sample.repository.CountryRepository;
+// import br.com.cinq.spring.data.sample.entity.Country;
+// import br.com.cinq.spring.data.sample.repository.CountryRepository;
 import br.com.cinq.spring.data.sample.entity.Country;
 import br.com.cinq.spring.data.sample.repository.CountryRepository;
 
@@ -15,16 +14,12 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebIntegrationTest(randomPort = true)
-@IntegrationTest("server.port=9000")
+@RunWith(SpringRunner.class)
+@DataJpaTest
 @ActiveProfiles("unit")
 public class CountryRepositoryTest {
 
@@ -56,5 +51,25 @@ public class CountryRepositoryTest {
 		Assert.assertEquals(1, countries.size());
 
 	}
+
+    @Test
+    public void testInsertWithSameName() {
+
+        Country country = new Country();
+        country.setId(10l);
+        country.setName("France");
+
+        dao.save(country);
+
+        long count = dao.count();
+
+        System.out.println(count);
+
+        Iterable<Country> findAll = dao.findAll();
+
+        for (Country c : findAll) {
+            System.out.println(c.getId());
+        }
+    }
 
 }

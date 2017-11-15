@@ -4,6 +4,7 @@ import br.com.cinq.spring.data.sample.entity.City;
 import br.com.cinq.spring.data.sample.repository.CityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -12,12 +13,12 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 @Component
 @Path("/cities")
@@ -47,13 +48,14 @@ public class CityResource {
 	@Produces("application/json")
     public Response getCitiesByCountryName(@QueryParam(value = "country") String country) {
 
-		if (StringUtils.isEmpty(country)) {
-            Iterable<City> findAll = cityRepository.findAll();
-            return Response.ok(findAll).build();
-		}
-        List<City> findByCountryNameStartingWith = cityRepository.findByCountryNameStartingWith(country);
-        return Response.ok(findByCountryNameStartingWith).build();
-
+        return Optional
+            .ofNullable(country)
+            .map(param -> cityRepository.findByCountryNameStartingWith(country))
+            .map(
+                cities -> cities.isEmpty() ? Response.status(Status.NOT_FOUND).build() : Response.status(Status.OK)
+                    .entity(cities).build())
+            .orElse(Response.status(Status.OK)
+                    .entity(cityRepository.findAll()).build());
 	}
 
 	/**
@@ -66,6 +68,9 @@ public class CityResource {
 	@Consumes("application/json")
     public Response putCities(List<City> cities) {
 
+        if (cities.isEmpty()) {
+            return Response.status(Status.BAD_REQUEST).build();
+        }
 		cityRepository.save(cities);
         return Response.ok().build();
 

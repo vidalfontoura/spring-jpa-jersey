@@ -8,7 +8,6 @@ import java.util.Date;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.JobExecution;
-import org.springframework.batch.core.JobExecutionListener;
 import org.springframework.batch.core.JobParameters;
 import org.springframework.batch.core.JobParametersBuilder;
 import org.springframework.batch.core.Step;
@@ -112,7 +111,6 @@ public class BatchConfiguration {
 	public Job importCities() throws Exception {
 
         return jobBuilderFactory.get("importCitiesFromCSVFile").incrementer(new RunIdIncrementer())
-            .listener(listener())
 				.flow(step1()).end().build();
 	}
 
@@ -122,9 +120,6 @@ public class BatchConfiguration {
 				.writer(writer()).build();
 	}
 
-	@Bean
-	public JobExecutionListener listener() {
-		return new JobCompletionNotificationListener();
-	}
+
 
 }

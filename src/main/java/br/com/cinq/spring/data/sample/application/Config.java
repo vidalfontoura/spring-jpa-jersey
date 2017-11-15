@@ -17,10 +17,7 @@ import org.springframework.context.annotation.Configuration;
 public class Config extends ResourceConfig {
 
 	public Config() {
-
 		register(CityResource.class);
-		// packages("br.com.cinq.greet.resource");
-		// property(ServletProperties.FILTER_FORWARD_ON_404, true);
 	}
 
 

@@ -77,3 +77,23 @@ Included you will find JUnit tests, with commented lines. Those tests must run a
 are uncommented.
 
 ** PLUS: It would be great if you can come up with unit and integration tests separately in their apropriate building phases.
+
+# Implementation Details
+
+Two Rest end points were created GET and PUT. 
+The GET end point will return either all cities existing in the database or the cities from the given query parameter "country". If there is not any cities for the provided country it will return the Http Status Not Found.
+The PUT end point receive a json file containing the cities and simply inserts into the database.
+
+
+Batch Processing with Scheduling was added to load an .csv file in the database, its necessary to configure two properties in the yml configure files:
+	batch:
+    	file:
+    	cron-expression: 
+The batch.file defines the name of the file to be load in the database. (Currently supporting only files within the ClassPath. I think for this feature become more useful it should read files from external sources such S3 or even a external folder in the running server. Although I tried to explore the batch and scheduling from the spring-boot)
+
+The batch.cron-expression defines the cron expression for the scheduling rate. 
+    
+ 
+
+
+

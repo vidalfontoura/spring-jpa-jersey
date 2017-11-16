@@ -93,15 +93,23 @@ The PUT end point receive a json file containing the cities and simply inserts i
 	{"name":"Cascavel","country":{"name":"Brazil"}}, {"name":"Oslo","country":{"name":"Norway"}}]' http://localhost:8090/	rest/cities
 
 
-Batch Processing with Scheduling was added to load an .csv file in the database, its necessary to configure two properties in the yml configure files:
+Batch Processing with Scheduling was added to load an .csv file in the database once the file is processed the operation deletes it, its necessary to configure two properties in the yml configure files:
+
 	batch:
     	file:
     	cron-expression: 
-The batch.file defines the name of the file to be load in the database. (Currently supporting only files within the ClassPath. I think for this feature become more useful it should read files from external sources such S3 or even a external folder in the running server. Although I tried to explore the batch and scheduling from the spring-boot)
+
+The batch.file defines the name of the file to be load in the database. 
 
 The batch.cron-expression defines the cron expression for the scheduling rate. 
     
- 
+Note: Currently supporting only files within the ClassPath. I think for this feature become more useful it should 		read files from external sources such S3 or even a external folder in the running server. Although I tried to explore and learn the batch and scheduling from the spring-boot for this exercise.
+
+#Notes and Improvements
+
+
+
+
 
 
 

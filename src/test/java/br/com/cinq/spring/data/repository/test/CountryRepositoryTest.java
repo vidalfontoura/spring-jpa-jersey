@@ -1,7 +1,5 @@
 package br.com.cinq.spring.data.repository.test;
 
-// import br.com.cinq.spring.data.sample.entity.Country;
-// import br.com.cinq.spring.data.sample.repository.CountryRepository;
 import br.com.cinq.spring.data.Application;
 import br.com.cinq.spring.data.sample.entity.Country;
 import br.com.cinq.spring.data.sample.repository.CountryRepository;

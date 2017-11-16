@@ -107,7 +107,6 @@ For testing purposes this properties were pre-configured.
     
 Note: Currently supporting only files within the ClassPath. I think for this feature become more useful it should 		read files from external sources such S3 or even a external folder in the running server. Although I tried to explore and learn the batch and scheduling from the spring-boot for this exercise.
 
-#Notes and Improvements
 
 
 

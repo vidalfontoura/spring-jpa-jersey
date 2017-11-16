@@ -58,7 +58,7 @@ public class CityResource {
             .ofNullable(country)
             .map(param -> cityRepository.findByCountryNameStartingWith(country))
             .map(
-                cities -> cities.isEmpty() ? Response.status(Status.NOT_FOUND).build() : Response.status(Status.OK)
+                cities -> cities.isEmpty() ? Response.status(Status.NO_CONTENT).build() : Response.status(Status.OK)
                     .entity(cities).build())
             .orElse(Response.status(Status.OK)
                     .entity(cityRepository.findAll()).build());
@@ -74,7 +74,7 @@ public class CityResource {
 	@Consumes("application/json")
     public Response putCities(List<City> cities) {
 
-        LOGGER.info(SAVING_CITIES_MSG);
+        LOGGER.info(SAVING_CITIES_MSG, cities);
         if (cities.isEmpty()) {
             return Response.status(Status.BAD_REQUEST).build();
         }

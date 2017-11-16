@@ -118,7 +118,7 @@ public class EndpointTest {
         ResponseEntity<Void> response =
             this.restTemplate.exchange(builder.build().encode().toUri(), HttpMethod.GET, entity, Void.class);
 
-        Assert.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+        Assert.assertEquals(HttpStatus.NO_CONTENT, response.getStatusCode());
     }
 
     @Test

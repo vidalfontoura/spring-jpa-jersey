@@ -81,8 +81,16 @@ are uncommented.
 # Implementation Details
 
 Two Rest end points were created GET and PUT. 
-The GET end point will return either all cities existing in the database or the cities from the given query parameter "country". If there is not any cities for the provided country it will return the Http Status Not Found.
-The PUT end point receive a json file containing the cities and simply inserts into the database.
+The GET end point will return either all cities existing in the database or the cities from the given query parameter "country". If there is not any cities for the provided country it will return the Http Status No Content. The operation can be tested locally using the following curls:
+
+	curl http://localhost:8090/rest/cities
+	
+	curl http://localhost:8090/rest/cities?country=Br
+
+The PUT end point receive a json file containing the cities and simply inserts into the database. The operation can be tested locally using the following curl:
+
+	curl -H "Content-Type: application/json" -X PUT -d '[{"name":"Ponta Grossa","country":{"name":"Brazil"}},
+	{"name":"Cascavel","country":{"name":"Brazil"}}, {"name":"Oslo","country":{"name":"Norway"}}]' http://localhost:8090/	rest/cities
 
 
 Batch Processing with Scheduling was added to load an .csv file in the database, its necessary to configure two properties in the yml configure files:

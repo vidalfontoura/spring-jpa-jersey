@@ -102,6 +102,8 @@ Batch Processing with Scheduling was added to load an .csv file in the database 
 The batch.file defines the name of the file to be load in the database. 
 
 The batch.cron-expression defines the cron expression for the scheduling rate. 
+
+For testing purposes this properties were pre-configured. 
     
 Note: Currently supporting only files within the ClassPath. I think for this feature become more useful it should 		read files from external sources such S3 or even a external folder in the running server. Although I tried to explore and learn the batch and scheduling from the spring-boot for this exercise.
 

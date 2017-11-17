@@ -77,3 +77,40 @@ Included you will find JUnit tests, with commented lines. Those tests must run a
 are uncommented.
 
 ** PLUS: It would be great if you can come up with unit and integration tests separately in their apropriate building phases.
+
+# Implementation Details
+
+Two Rest end points were created GET and PUT. 
+The GET end point will return either all cities existing in the database or the cities from the given query parameter "country". If there is not any cities for the provided country it will return the Http Status No Content. The operation can be tested locally using the following curls:
+
+	curl http://localhost:8090/rest/cities
+	
+	curl http://localhost:8090/rest/cities?country=Br
+
+The PUT end point receive a json file containing the cities and simply inserts into the database. The operation can be tested locally using the following curl:
+
+	curl -H "Content-Type: application/json" -X PUT -d '[{"name":"Ponta Grossa","country":{"name":"Brazil"}},
+	{"name":"Cascavel","country":{"name":"Brazil"}}, {"name":"Oslo","country":{"name":"Norway"}}]' http://localhost:8090/	rest/cities
+
+
+Batch Processing with Scheduling was added to load an .csv file in the database once the file is processed the operation deletes it, its necessary to configure two properties in the yml configure files:
+
+	batch:
+    	file:
+    	cron-expression: 
+
+The batch.file defines the name of the file to be load in the database. 
+
+The batch.cron-expression defines the cron expression for the scheduling rate. 
+
+For testing purposes this properties were pre-configured. 
+    
+Note: Currently supporting only files within the ClassPath. I think for this feature become more useful it should 		read files from external sources such S3 or even a external folder in the running server. Although I tried to explore and learn the batch and scheduling from the spring-boot for this exercise.
+
+
+
+
+
+
+
+

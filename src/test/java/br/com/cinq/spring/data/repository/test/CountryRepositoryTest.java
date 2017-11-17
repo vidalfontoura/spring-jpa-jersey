@@ -1,54 +1,54 @@
 package br.com.cinq.spring.data.repository.test;
 
+import br.com.cinq.spring.data.Application;
+import br.com.cinq.spring.data.sample.entity.Country;
+import br.com.cinq.spring.data.sample.repository.CountryRepository;
+
+import java.util.Iterator;
 import java.util.List;
+
+import jersey.repackaged.com.google.common.collect.Iterators;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.IntegrationTest;
-import org.springframework.boot.test.SpringApplicationConfiguration;
-import org.springframework.boot.test.WebIntegrationTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.cinq.spring.data.sample.application.Application;
-//import br.com.cinq.spring.data.sample.entity.Country;
-//import br.com.cinq.spring.data.sample.repository.CountryRepository;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-@WebIntegrationTest(randomPort = true)
-@IntegrationTest("server.port=9000")
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("unit")
 public class CountryRepositoryTest {
 
-//    @Autowired
-//    private CountryRepository dao;
+	@Autowired
+	private CountryRepository dao;
 
-    @Test
-    public void testGelAllCountries() {
+	@Test
+	public void testGelAllCountries() {
 
-//        Assert.assertNotNull(dao);
+		Assert.assertNotNull(dao);
 
-//        long count = dao.count();
+		long count = dao.count();
 
-//        Assert.assertTrue(count > 0);
+		Assert.assertTrue(count > 0);
 
-//        List<Country> countries = dao.findAll();
+		Iterator<Country> countries = dao.findAll().iterator();
 
-//        Assert.assertEquals((int) count, countries.size());
-    }
+		Assert.assertEquals((int) count, Iterators.size(countries));
 
-    @Test
-    public void testFindOneCountry() {
+	}
 
-//        Assert.assertNotNull(dao);
+	@Test
+	public void testFindOneCountry() {
 
-//        List<Country> countries = dao.findLikeName("Fra");
+		Assert.assertNotNull(dao);
 
-//        Assert.assertEquals(1, countries.size());
+		List<Country> countries = dao.findByNameStartingWith("Fra");
 
-    }
+		Assert.assertEquals(1, countries.size());
+
+	}
 
 }
